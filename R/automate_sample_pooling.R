@@ -10,6 +10,13 @@
 #' @import tidyverse
 #' @import dplyr
 #' @import ggplot2
+#' @examples
+#' # basic usage of automate_sample_pooling
+#' #For example Usage use:
+#' #For real usage use: Quant_DF <- read.csv(PATH TO CSV FILE)
+#' Quant_DF <- tgen.north.lab.sequencing.tools::Example_Quant_Data
+#' automate_sample_pooling(Quant = read.csv(Quant = Quant_DF, Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
+
 
 automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2){
 
@@ -187,12 +194,13 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 
 }
 
-# ## Testing the package
+## Testing the package
 # Max_Volume = 10 ###### Edit me max volume to use
 # Min_Volume = 1.6 ###### Edit me min volume to use
 # Date_Project = "20240117_Testing" ###### Edit me!!!!!!! Directory for stuff to be saved
-# DF <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
+# Example_Quant_Data <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
+# usethis::use_data(Example_Quant_Data)
 #
 # ?automate_sample_pooling
 #
-# automate_sample_pooling(Quant = DF, Date_Project = Date_Project, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
+# automate_sample_pooling(Quant = read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv"), Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)

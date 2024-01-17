@@ -18,3 +18,10 @@ automate_sample_pooling(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2)
 \description{
 This function is meant to automate sample pooling for sequencing. The process will produce several files including pooling maps, theoretical concentrations, and a script that can be added to the Epmo for completely automated pooling.
 }
+\examples{
+# basic usage of automate_sample_pooling
+#For example Usage use:
+#For real usage use: Quant_DF <- read.csv(PATH TO CSV FILE)
+Quant_DF <- tgen.north.lab.sequencing.tools::Example_Quant_Data
+automate_sample_pooling(Quant = read.csv(Quant = Quant_DF, Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
+}
