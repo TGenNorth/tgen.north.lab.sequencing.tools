@@ -8,6 +8,8 @@
 #' @export automate_sample_pooling
 #' @import tidyr
 #' @import tidyverse
+#' @import dplyr
+#' @import ggplot2
 
 automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2){
 
@@ -156,7 +158,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 
     Temp = PlateMap
 
-    Destination = data.frame(Destination = c("A1", "A2", "A3", "A4", "A5", "A6","B1", "B2", "B3", "B4", "B5", "B6","C1", "C2", "C3", "C4", "C5", "C6","D1", "D2", "D3", "D4", "D5", "D6"), Pool = c(1:24))
+    Destination = data.frame(Destination = c(1:24), Pool = c(1:24))
 
     Source = data.frame(Source_Label = unique(Temp$Plate))
 
@@ -184,3 +186,13 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   } else { print("Error in Epmo program... Check to make sure you have less than 4 plates and less than 24 pools!")}
 
 }
+
+# ## Testing the package
+# Max_Volume = 10 ###### Edit me max volume to use
+# Min_Volume = 1.6 ###### Edit me min volume to use
+# Date_Project = "20240117_Testing" ###### Edit me!!!!!!! Directory for stuff to be saved
+# DF <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
+#
+# ?automate_sample_pooling
+#
+# automate_sample_pooling(Quant = DF, Date_Project = Date_Project, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
