@@ -15,7 +15,7 @@
 #' #For example Usage use:
 #' #For real usage use: Quant_DF <- read.csv(PATH TO CSV FILE)
 #' Quant_DF <- tgen.north.lab.sequencing.tools::Example_Quant_Data
-#' automate_sample_pooling(Quant = read.csv(Quant = Quant_DF, Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
+#' automate_sample_pooling(Quant = Quant_DF, Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
 
 
 automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2){
