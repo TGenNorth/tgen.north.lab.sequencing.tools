@@ -161,7 +161,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   }
 
 
-  if (length(unique(PlateMap$Plate))<4 & length(unique(PlateMap$Pool)) <5){
+  if (length(unique(PlateMap$Plate)) < 4 & length(unique(PlateMap$Pool)) < 25){
 
     Temp = PlateMap
 
@@ -190,7 +190,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 
     write.csv(Epmo, savepath, row.names = F)
 
-  } else { print("Error in Epmo program... Check to make sure you have less than 4 plates and less than 24 pools!")}
+  } else { print("Error in Epmo program... Check to make sure you have less than 4 plates and less than 25 pools!")}
 
 }
 
