@@ -8,6 +8,7 @@
 #' @export automate_sample_pooling
 #' @import tidyr
 #' @import tidyverse
+#' @import dplyr
 #' @examples
 #' # basic usage of automate_sample_pooling
 #' #For example Usage use:
