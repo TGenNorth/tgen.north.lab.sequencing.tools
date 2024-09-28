@@ -7,7 +7,7 @@
 automate_sample_pooling(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2)
 }
 \arguments{
-\item{Quant}{A csv file with four columns named "Sample Name", "Quantification" "Position", and "Plate". Sample name can be anything. Quantification should be sample quantification value from quant. Position should be the position within the 96 well plate (A1-H12). Plate should identify which plate the sample is on ("Plate 1"-"Plate N").}
+\item{Quant}{A csv file with four columns named "Sample Name", "Quantification" "Position", "Plate", and "Group" (Optional). Sample name can be anything. Quantification should be sample quantification value from quant. Position should be the position within the 96 well plate (A1-H12). Plate should identify which plate the sample is on ("Plate 1"-"Plate N"). The optional group label will allow samples to be pooled within each group (Example: West Nile exclusively to WNV pools and SARS-CoV-2 to SC2 pools)}
 
 \item{Date_Project}{A character string to specify the name of the pooling run. This will create a new directory with that name and name the files accordingly.}
 
