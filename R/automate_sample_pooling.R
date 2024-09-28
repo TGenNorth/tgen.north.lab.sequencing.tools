@@ -8,7 +8,6 @@
 #' @export automate_sample_pooling
 #' @import tidyr
 #' @import tidyverse
-#' @import ggplot2
 #' @examples
 #' # basic usage of automate_sample_pooling
 #' #For example Usage use:
