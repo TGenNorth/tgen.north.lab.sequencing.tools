@@ -1,7 +1,7 @@
 #' Automate Sample Pooling
 #'
 #' @description This function is meant to automate sample pooling for sequencing. The process will produce several files including pooling maps, theoretical concentrations, and a script that can be added to the Epmo for completely automated pooling.
-#' @param Quant A csv file with four columns named "Sample Name", "Quantification" "Position", and "Plate". Sample name can be anything. Quantification should be sample quantification value from quant. Position should be the position within the 96 well plate (A1-H12). Plate should identify which plate the sample is on ("Plate 1"-"Plate N").
+#' @param Quant A csv file with four columns named "Sample Name", "Quantification" "Position", "Plate", and "Group" (Optional). Sample name can be anything. Quantification should be sample quantification value from quant. Position should be the position within the 96 well plate (A1-H12). Plate should identify which plate the sample is on ("Plate 1"-"Plate N"). The optional group label will allow samples to be pooled within each group (Example: West Nile exclusively to WNV pools and SARS-CoV-2 to SC2 pools)
 #' @param Date_Project A character string to specify the name of the pooling run. This will create a new directory with that name and name the files accordingly.
 #' @param Max_Volume A number specifying the max volume of a sample to be included in a pool (Default = 8ul).
 #' @param Min_Volume A number specifying the minimim volume of a sample to be included in the pool (Default = 2ul).
@@ -20,44 +20,66 @@
 
 automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2){
 
-  # Find minimum quantification value
-  Min_Quant = min(Quant$Quantification)
+  if(is.null(Quant$Group) == TRUE){
+    Quant$Group <- "1"
+  } else {
+    Quant$Group <- as.character(Quant$Group)
+  }
 
-  #Calculate Vol to pool
-  Quant <- Quant %>%
-    mutate(Vol_Pool = (Min_Quant / Quantification)*Max_Volume,
-           Pool = 1)
-
-  #Find minimum pool value
-  Min_Pool <- min(Quant$Vol_Pool)
+  Pool_n = 0
 
   #Create out Quant
   Out  <- data.frame()
 
-  #While Min_pool is less than min_volume
-  while (Min_Pool < Min_Volume ) {
+  for(GROUP in unique(Quant$Group)){
 
+    Group_Quant <- Quant %>%
+      filter(Group == GROUP)
 
-    Temp <- Quant %>%
-      filter(Vol_Pool > Min_Volume )
+    # Find minimum quantification value
+    Min_Quant = min(Group_Quant$Quantification)
 
-    Out <- rbind(Out, Temp)
+    Pool_n <- Pool_n+1
+    cat("Updating pool number to: ", Pool_n, "\n")
 
-    Quant <- Quant %>%
-      filter(!Vol_Pool > Min_Volume )
-
-    Min_Quant = min(Quant$Quantification)
-
-    Quant <- Quant %>%
+    #Calculate Vol to pool
+    Group_Quant <- Group_Quant %>%
       mutate(Vol_Pool = (Min_Quant / Quantification)*Max_Volume,
-             Pool = Pool + 1)
+             Pool = Pool_n)
 
-    Min_Pool = min(Quant$Vol_Pool)
+    #Find minimum pool value
+    Min_Pool <- min(Group_Quant$Vol_Pool)
+
+    #While Min_pool is less than min_volume
+    while (Min_Pool < Min_Volume ) {
+
+
+      Temp <- Group_Quant %>%
+        filter(Vol_Pool > Min_Volume )
+
+      Out <- rbind(Out, Temp)
+
+      Group_Quant <- Group_Quant %>%
+        filter(!Vol_Pool > Min_Volume )
+
+      Min_Quant = min(Group_Quant$Quantification)
+
+      Pool_n <- Pool_n+1
+
+      cat("Updating pool number to: ", Pool_n, "\n")
+
+      Group_Quant <- Group_Quant %>%
+        mutate(Vol_Pool = (Min_Quant / Quantification)*Max_Volume,
+               Pool = Pool_n)
+
+      Min_Pool = min(Group_Quant$Vol_Pool)
+
+    }
+
+    #Join Out and Quant
+    Out <- rbind(Out, Group_Quant)
 
   }
-
-  #Join Out and Quant
-  Out <- rbind(Out, Quant)
 
   Out$Max_Available <- NULL
   Out$Min_Available <- NULL
@@ -85,8 +107,6 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
                       Row=as.numeric(match(toupper(substr(Position, 1, 1)), LETTERS)),
                       Column=as.numeric(substr(Position, 2, 5)))
 
-
-
   # Write Excel Output
 
 
@@ -107,7 +127,6 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
     Temp = filter(PlateMap, Plate == j)
 
     savepath <- paste("./", Date_Project,"/", Date_Project, "_General_Map_", j, ".png", sep = "")
-
 
     ggplot(data=Temp, aes(x=Column, y=Row)) +
       geom_point(data=expand.grid(seq(1, 12), seq(8, 1)), aes(x=Var1, y=Var2),
@@ -161,7 +180,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   }
 
 
-  if (length(unique(PlateMap$Plate)) < 4 & length(unique(PlateMap$Pool)) < 25){
+  if (length(unique(PlateMap$Plate)) < 7 & length(unique(PlateMap$Pool)) < 25 & max(Theoretical_Pools$Final_Volume) < 1500){
 
     Temp = PlateMap
 
@@ -190,17 +209,19 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 
     write.csv(Epmo, savepath, row.names = F)
 
-  } else { print("Error in Epmo program... Check to make sure you have less than 4 plates and less than 25 pools!")}
+  } else { print("Error in Epmo program... Check to make sure you have less than 7 plates, less than 25 pools, and the max pool volume is less than 1500ul!")}
 
 }
 
 ## Testing the package
 # Max_Volume = 10 ###### Edit me max volume to use
-# Min_Volume = 1.6 ###### Edit me min volume to use
-# Date_Project = "20240117_Testing" ###### Edit me!!!!!!! Directory for stuff to be saved
+# Min_Volume = 2 ###### Edit me min volume to use
+# Date_Project = "20240117_Testing_Complex" ###### Edit me!!!!!!! Directory for stuff to be saved
 # Example_Quant_Data <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
-# usethis::use_data(Example_Quant_Data)
+#usethis::use_data(Example_Quant_Data)
 #
 # ?automate_sample_pooling
 #
-# automate_sample_pooling(Quant = read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv"), Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
+# Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset_2.csv")
+#
+#automate_sample_pooling(Quant = read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset_2.csv"), Date_Project = "20240927_Testing_Complex_Empty", Max_Volume = 10, Min_Volume = 1.6)
