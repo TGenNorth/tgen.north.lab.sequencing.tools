@@ -50,6 +50,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 # library(tidyverse)
 # Max_Volume = 15 ###### Edit me max volume to use
 # Min_Volume = 10 ###### Edit me min volume to use
-# Date_Project = "Test_Function_4"
+# Date_Project = "Test_Function_Integra"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
+# Quant <- filter(Quant, Plate == "Plate 1")
 # automate_sample_pooling(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume, Date_Project = Date_Project)
