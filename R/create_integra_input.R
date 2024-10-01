@@ -43,7 +43,7 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
       mutate("Integra" = paste(Sample.Name,Rack, Position, Destination, Pool_well, Vol_Pool, sep = ";")) %>%
       select("Integra")
 
-    names(Integra) <- c("SampleID;SourceDeckPosition;SourceWell;TargetDeckPosition;TargetWell;TransferVolume [¬µl]")
+    names(Integra) <- c("SampleID;SourceDeckPosition;SourceWell;TargetDeckPosition;TargetWell;TransferVolume [µl]")
 
     return(Integra)
 
