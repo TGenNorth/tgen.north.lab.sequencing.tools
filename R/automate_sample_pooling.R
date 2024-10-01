@@ -39,11 +39,11 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   # Write the final Epmo dataframe to a CSV file without row names.
   write.csv(Epmo, paste("./", Date_Project,"/", Date_Project, "_Epmo_Input.csv", sep = ""), row.names = FALSE)
 
-  # #Generate Epmo Output
-  # Integra <- create_integra_input(Out, Theoretical_Pools, Date_Project)
-  #
-  # # Write the final Epmo dataframe to a CSV file without row names.
-  # write.csv(Integra, paste("./", Date_Project,"/", Date_Project, "_Integra_Input.csv", sep = ""), row.names = FALSE)
+  #Generate Epmo Output
+  Integra <- create_integra_input(Out, Theoretical_Pools, Date_Project)
+
+  # Write the final Epmo dataframe to a CSV file without row names.
+  write.csv(Integra, paste("./", Date_Project,"/", Date_Project, "_Integra_Input.csv", sep = ""), row.names = FALSE)
 }
 
 ## Testing the function

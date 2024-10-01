@@ -20,7 +20,14 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
       max(create_pools_df$Vol_Pool) <= 300) {
 
     # Create a dataframe 'Destination' with 24 rows for 24 destination wells, with Pool values from 1 to 24.
-    Destination <- data.frame(Destination = "C", Pool = 1:48)
+    Destination <- data.frame(Destination = "C", Pool = 1:48, Pool_well =c("A01","A02","A03","A04","A05","A06",
+           "B01","B02","B03","B04","B05","B06",
+           "C01","C02","C03","C04","C05","C06",
+           "D01","D02","D03","D04","D05","D06",
+           "E01","E02","E03","E04","E05","E06",
+           "F01","F02","F03","F04","F05","F06",
+           "G01","G02","G03","G04","G05","G06",
+           "H01","H02","H03","H04","H05","H06"))
 
     # Create a dataframe 'Source' for the source plate labels and assign sequential 'Rack' numbers.
     Source <- data.frame(Source_Label = unique(create_pools_df$Plate))
@@ -29,23 +36,16 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
     # Merge 'create_pools_df' with 'Source' based on matching Plate and Source_Label values.
     create_pools_df <- create_pools_df %>%
       left_join(Source, by = c("Plate" = "Source_Label")) %>%
-      left_join(Destination, by = "Pool") %>%
-      # Add new columns for Rack_dest (destination rack number) and Tool (e.g., pipetting tool).
-      mutate(Rack_dest = "C")
+      left_join(Destination, by = "Pool")
 
-    # Define the file path for saving the EPMO output CSV file.
-    savepath <- paste0("./", Date_Project, "/", Date_Project, "_Robot_Output.csv")
+    # Select the relevant columns for the integra dataframe for robot instruction.
+    Integra <- create_pools_df %>%
+      mutate("Integra" = paste(Sample.Name,Rack, Position, Destination, Pool_well, Vol_Pool, sep = ";")) %>%
+      select("Integra")
 
-    # Select the relevant columns for the Epmo dataframe for robot instruction.
-    Epmo <- create_pools_df %>%
-      select(Plate, Rack, Position, Rack_dest, Destination, Vol_Pool, Tool)
+    names(Integra) <- c("SampleID;SourceDeckPosition;SourceWell;TargetDeckPosition;TargetWell;TransferVolume [¬µl]")
 
-    # Rename the columns to match the format expected by the robot:
-    # Plate = Source Plate, Rack = Source Rack, Position = Source Well, Rack_dest = Destination Rack,
-    # Destination = Destination Well, Vol_Pool = Volume, Tool = Pipetting Tool
-    names(Epmo) <- c("Plate", "Rack", "Source", "Rack_dest", "Destination", "Volume", "Tool")
-
-    return(Epmo)
+    return(Integra)
 
   } else {
     # If the conditions are not met, stop the function and display an error message.
@@ -59,14 +59,9 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
 # Min_Volume = 2 ###### Edit me min volume to use
 # Date_Project = "Test_Function"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
-#
 # Quant <- filter(Quant, Plate == "Plate 1")
-#
-# Out <- create_pools(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
+# Out <- tgen.north.lab.sequencing.tools:::create_pools(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
 # Theoretical_Pools <- Out %>%
 #   group_by(Pool) %>%
 #   summarise(n_samples = n(), Final_Volume = sum(Vol_Pool), Theoretical_Conc = sum(Vol_Pool * Quantification) / sum(Vol_Pool))
-#
-# create_pools_df <- Out
-#
 # create_integra_input(Out, Theoretical_Pools, Date_Project)

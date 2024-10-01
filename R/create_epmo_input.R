@@ -35,9 +35,6 @@ create_epmo_input <- function(create_pools_df, Theoretical_Pools, Date_Project) 
 
     create_pools_df$Tool <- ifelse(create_pools_df$Vol_Pool <= 10, "TS10", ifelse(create_pools_df$Vol_Pool <= 50, "TS50", ifelse(create_pools_df$Vol_Pool <= 300, "TS300", "Error")))
 
-    # Define the file path for saving the EPMO output CSV file.
-    savepath <- paste0("./", Date_Project, "/", Date_Project, "_Robot_Output.csv")
-
     # Select the relevant columns for the Epmo dataframe for robot instruction.
     Epmo <- create_pools_df %>%
       select(Plate, Rack, Position, Rack_dest, Destination, Vol_Pool, Tool)
