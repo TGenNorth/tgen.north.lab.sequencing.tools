@@ -33,12 +33,15 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   #Generate plots
   generate_plate_maps(Out, Date_Project)
 
+  cat("Starting to create Epmo Input file...")
+
   #Generate Epmo Output
   Epmo <- create_epmo_input(Out, Theoretical_Pools, Date_Project)
 
   # Write the final Epmo dataframe to a CSV file without row names.
   write.csv(Epmo, paste("./", Date_Project,"/", Date_Project, "_Epmo_Input.csv", sep = ""), row.names = FALSE)
 
+  cat("Starting to create Integra Input file...")
   #Generate Epmo Output
   Integra <- create_integra_input(Out, Theoretical_Pools, Date_Project)
 
