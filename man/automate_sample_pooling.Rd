@@ -7,21 +7,14 @@
 automate_sample_pooling(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2)
 }
 \arguments{
-\item{Quant}{A csv file with four columns named "Sample Name", "Quantification" "Position", "Plate", and "Group" (Optional). Sample name can be anything. Quantification should be sample quantification value from quant. Position should be the position within the 96 well plate (A1-H12). Plate should identify which plate the sample is on ("Plate 1"-"Plate N"). The optional group label will allow samples to be pooled within each group (Example: West Nile exclusively to WNV pools and SARS-CoV-2 to SC2 pools)}
+\item{Quant}{A data frame with columns: Sample Name, Quantification, Position, Plate, Group (optional).}
 
-\item{Date_Project}{A character string to specify the name of the pooling run. This will create a new directory with that name and name the files accordingly.}
+\item{Date_Project}{A string representing the name of the project (used for output directories and file names).}
 
-\item{Max_Volume}{A number specifying the max volume of a sample to be included in a pool (Default = 8ul).}
+\item{Max_Volume}{The maximum volume allowed for each sample in the pool (default = 8 μL).}
 
-\item{Min_Volume}{A number specifying the minimim volume of a sample to be included in the pool (Default = 2ul).}
+\item{Min_Volume}{The minimum volume allowed for each sample in the pool (default = 2 μL).}
 }
 \description{
-This function is meant to automate sample pooling for sequencing. The process will produce several files including pooling maps, theoretical concentrations, and a script that can be added to the Epmo for completely automated pooling.
-}
-\examples{
-# basic usage of automate_sample_pooling
-#For example Usage use:
-#For real usage use: Quant_DF <- read.csv(PATH TO CSV FILE)
-Quant_DF <- tgen.north.lab.sequencing.tools::Example_Quant_Data
-automate_sample_pooling(Quant = Quant_DF, Date_Project = "20240117_Testing", Max_Volume = 10, Min_Volume = 1.6)
+Automates sample pooling, creates plots, and generates Epmo robot output. This function wraps around the internal pool creation, plotting, and robot output functions.
 }
