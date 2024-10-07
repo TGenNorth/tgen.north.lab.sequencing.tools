@@ -13,6 +13,9 @@
 
 automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Volume = 2) {
 
+  # Validate input
+  cat(validate_automate_sample_pooling_input(Quant, Date_Project, Max_Volume, Min_Volume))
+
   # Create Folder to save to
   dir.create(paste("./", Date_Project, sep = ""))
 
@@ -49,11 +52,12 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   write.csv(Integra, paste("./", Date_Project,"/", Date_Project, "_Integra_Input.csv", sep = ""), row.names = FALSE)
 }
 
-## Testing the function
+# ## Testing the function
+# library(tgen.north.lab.sequencing.tools)
 # library(tidyverse)
-# Max_Volume = 15 ###### Edit me max volume to use
-# Min_Volume = 10 ###### Edit me min volume to use
+# Max_Volume = 8 ###### Edit me max volume to use
+# Min_Volume = 1 ###### Edit me min volume to use
 # Date_Project = "Test_Function_Integra"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
-# Quant <- filter(Quant, Plate == "Plate 1")
+# # Quant <- filter(Quant, Plate == "Plate 1")
 # automate_sample_pooling(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume, Date_Project = Date_Project)

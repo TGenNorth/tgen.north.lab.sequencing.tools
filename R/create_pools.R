@@ -89,6 +89,8 @@ create_pools <- function(Quant, Max_Volume = 8, Min_Volume = 2) {
 # library(tidyverse)
 # Max_Volume = 10 ###### Edit me max volume to use
 # Min_Volume = 2 ###### Edit me min volume to use
-# Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
+#Test_Dataset_2 <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset_2.csv") ###### Edit me!!!!!! Data to read in
+#save(Test_Dataset_2, file = "./data/Example_Test_Dataset_2.rda")
 # create_pools(Quant = Quant, Max_Volume = 10, Min_Volume = 2)
+
 

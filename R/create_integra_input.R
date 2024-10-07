@@ -14,7 +14,7 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
   # - Less than X pools
   # - The maximum volume in Theoretical_Pools is less than 1500 μL
   # - The maximum volume per sample in create_pools_df is less than or equal to 10 μL
-  if (length(unique(create_pools_df$Plate)) < 2 &&
+  if (length(unique(create_pools_df$Plate)) <= 2 &&
       length(unique(create_pools_df$Pool)) < 48 &&
       max(Theoretical_Pools$Final_Volume) < 2000 &&
       max(create_pools_df$Vol_Pool) <= 300) {
