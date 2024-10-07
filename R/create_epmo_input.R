@@ -48,7 +48,7 @@ create_epmo_input <- function(create_pools_df, Theoretical_Pools, Date_Project) 
 
   } else {
     # If the conditions are not met, stop the function and display an error message.
-    stop("Error in Epmo program. Ensure less than 7 plates, less than 25 pools, max pool size <1500 μL, and max volume <300 μL per sample!")
+    warning("Warning in Epmo program. Ensure less than 7 plates, less than 25 pools, max pool size <1500 μL, and max volume <300 μL per sample!")
   }
 }
 

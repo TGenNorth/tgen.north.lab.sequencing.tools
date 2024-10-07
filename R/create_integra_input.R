@@ -49,7 +49,7 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
 
   } else {
     # If the conditions are not met, stop the function and display an error message.
-    stop("Error in Integra program. Ensure less than 2 plates, less than 48 pools, max pool size <2000 μL, and max volume <300 μL per sample!")
+    warning("Warning in Integra program. Ensure less than 2 plates, less than 48 pools, max pool size <2000 μL, and max volume <300 μL per sample!")
   }
 }
 
