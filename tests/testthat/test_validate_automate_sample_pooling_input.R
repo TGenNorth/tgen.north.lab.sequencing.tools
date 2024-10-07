@@ -1,5 +1,3 @@
-library(testthat)
-
 # Test suite for the validate_automate_sample_pooling_input function
 test_that("validate_automate_sample_pooling_input works correctly", {
 
@@ -14,7 +12,7 @@ test_that("validate_automate_sample_pooling_input works correctly", {
   # Test 1: Valid inputs
   # Ensure that the function processes valid input and prints a confirmation message
   expect_equal(validate_automate_sample_pooling_input(valid_data, "Project_1", 100, 10),
-                "Input passed validation...")
+               "Input passed validation...")
 
   # Test 2: Invalid Quant (not a data frame)
   # Ensure that an error is raised when Quant is not a data frame
@@ -58,5 +56,16 @@ test_that("validate_automate_sample_pooling_input works correctly", {
   result <- valid_data
   result$Group <- NULL  # Remove Group column
   expect_equal(validate_automate_sample_pooling_input(result, "Project_1", 100, 10),
-                "Input passed validation...")  # Ensure the function runs without error
+               "Input passed validation...")  # Ensure the function runs without error
+
+  # Test 9: Invalid Position Values
+  # Create an invalid data frame with an invalid position
+  invalid_data <- data.frame(
+    Sample.Name = c("Sample1", "Sample2"),
+    Quantification = c(10, 20),
+    Position = c("InvalidPos", "B01"),  # Invalid position
+    Plate = c("Plate1", "Plate2")
+  )
+  expect_error(validate_automate_sample_pooling_input(invalid_data, "Project_1", 100, 10),
+               "The following Position values are invalid: InvalidPos")
 })
