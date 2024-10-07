@@ -59,9 +59,7 @@ validate_automate_sample_pooling_input <- function(Quant, Date_Project, Max_Volu
     "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12",
     "G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12",
     "H01", "H02", "H03", "H04", "H05", "H06", "H07", "H08", "H09", "H10", "H11", "H12",
-
-    # Include positions A1 to H9
-    "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
+    "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",# Include positions A1 to H9
     "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
     "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9",
     "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9",

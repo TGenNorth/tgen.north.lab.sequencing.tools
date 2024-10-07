@@ -19,6 +19,10 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   # Create Folder to save to
   dir.create(paste("./", Date_Project, sep = ""))
 
+  # Document session info
+  session_info <- capture.output(sessionInfo())
+  writeLines(session_info, paste("./", Date_Project, "/", Date_Project, "_SessionInfo.txt", sep = ""))
+
   # Create pools
   Out <- create_pools(Quant, Max_Volume, Min_Volume)
 
@@ -51,8 +55,8 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   # Write the final Epmo dataframe to a CSV file without row names.
   write.csv(Integra, paste("./", Date_Project,"/", Date_Project, "_Integra_Input.csv", sep = ""), row.names = FALSE)
 }
-
-# ## Testing the function
+#
+# # ## Testing the function
 # library(tgen.north.lab.sequencing.tools)
 # library(tidyverse)
 # Max_Volume = 8 ###### Edit me max volume to use
@@ -60,4 +64,5 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 # Date_Project = "Test_Function_Integra"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
 # # Quant <- filter(Quant, Plate == "Plate 1")
+# validate_automate_sample_pooling_input(Quant, Date_Project, Max_Volume, Min_Volume)
 # automate_sample_pooling(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume, Date_Project = Date_Project)
