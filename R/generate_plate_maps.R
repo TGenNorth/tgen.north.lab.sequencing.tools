@@ -54,7 +54,7 @@ generate_plate_maps <- function(create_pools_df, Date_Project) {
       geom_point(aes(colour = Pool), alpha = 0.9, size = 14) + # Plot the pooled samples with colors by 'Pool'
       ylab("") + # Remove y-axis label
       xlab("") + # Remove x-axis label
-      theme(legend.position = c(0.5, 1.05), legend.direction="vertical") + # Position the legend above the plot
+      theme(legend.position.inside = c(0.5, 1.05), legend.direction="vertical") + # Position the legend above the plot
       geom_text(aes(label=paste(Sample.Name,"\n", Vol_Pool, " μL", sep = "")), fontface = "bold", size = 2.5) + # Add sample name and volume
       guides(color = guide_legend(override.aes = list(size = 3))) + # Adjust legend size
       guides(colour=guide_legend(ncol=1)) + # Set legend to one column
@@ -85,7 +85,6 @@ generate_plate_maps <- function(create_pools_df, Date_Project) {
         geom_point(aes(colour = Pool), alpha = 0.9, size = 14) + # Plot the pooled samples
         ylab("") + # Remove y-axis label
         xlab("") + # Remove x-axis label
-        theme(legend.position = c(0.5, 1.05), legend.direction="vertical") + # Position legend
         geom_text(aes(label= paste(Position.x,"\n", Vol_Pool, " μL", sep = "")), fontface = "bold", size = 2.5) + # Add labels
         guides(color = guide_legend(override.aes = list(size = 3))) + # Adjust legend size
         guides(colour=guide_legend(ncol=1)) + # Set legend to one column
@@ -100,11 +99,11 @@ generate_plate_maps <- function(create_pools_df, Date_Project) {
   }
 }
 
-# ## Testing the function
+## Testing the function
 # library(tidyverse)
 # Max_Volume = 10 ###### Edit me max volume to use
 # Min_Volume = 2 ###### Edit me min volume to use
 # Date_Project = "Test_Function"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
-# Out <- create_pools(Quant = Quant, Max_Volume = 10, Min_Volume = 2)
-# generate_plate_maps(create_pools_df = Out, Date_Project = Date_Project)
+# create_pools_df <- tgen.north.lab.sequencing.tools:::create_pools(Quant = Quant, Max_Volume = 10, Min_Volume = 2)
+# generate_plate_maps(create_pools_df = create_pools_df, Date_Project = Date_Project)
