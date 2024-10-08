@@ -33,7 +33,7 @@ create_epmo_input <- function(create_pools_df, Theoretical_Pools, Date_Project) 
       # Add new columns for Rack_dest (destination rack number) and Tool (e.g., pipetting tool).
       mutate(Rack_dest = 1, Tool = "Error")
 
-    create_pools_df$Tool <- ifelse(create_pools_df$Vol_Pool <= 10, "TS10", ifelse(create_pools_df$Vol_Pool <= 50, "TS50", ifelse(create_pools_df$Vol_Pool <= 300, "TS300", "Error")))
+    create_pools_df$Tool <- ifelse(create_pools_df$Vol_Pool <= 10, "TS_10", ifelse(create_pools_df$Vol_Pool <= 50, "TS_50", ifelse(create_pools_df$Vol_Pool <= 300, "TS_300", "Error")))
 
     # Select the relevant columns for the Epmo dataframe for robot instruction.
     Epmo <- create_pools_df %>%
@@ -42,7 +42,7 @@ create_epmo_input <- function(create_pools_df, Theoretical_Pools, Date_Project) 
     # Rename the columns to match the format expected by the robot:
     # Plate = Source Plate, Rack = Source Rack, Position = Source Well, Rack_dest = Destination Rack,
     # Destination = Destination Well, Vol_Pool = Volume, Tool = Pipetting Tool
-    names(Epmo) <- c("Plate", "Rack", "Source", "Rack_dest", "Destination", "Volume", "Tool")
+    names(Epmo) <- c("Plate (DELETE ME!)", "Rack", "Source", "Rack", "Destination", "Volume", "Tool")
 
     return(Epmo)
 
