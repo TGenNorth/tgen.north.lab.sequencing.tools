@@ -29,9 +29,8 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
            "G01","G02","G03","G04","G05","G06",
            "H01","H02","H03","H04","H05","H06"))
 
-    # Create a dataframe 'Source' for the source plate labels and assign sequential 'Rack' numbers.
-    Source <- data.frame(Source_Label = unique(create_pools_df$Plate))
-    Source$Rack <- "B"
+    # Create a dataframe 'Source' for the source plate labels and assign sequential 'Rack' letters.
+    Source <- data.frame(Source_Label = unique(create_pools_df$Plate), Rack = LETTERS[1:length(unique(create_pools_df$Plate))])
 
     # Merge 'create_pools_df' with 'Source' based on matching Plate and Source_Label values.
     create_pools_df <- create_pools_df %>%
@@ -59,8 +58,8 @@ create_integra_input <- function(create_pools_df, Theoretical_Pools, Date_Projec
 # Min_Volume = 2 ###### Edit me min volume to use
 # Date_Project = "Test_Function"
 # Quant <- read.csv("~/Dropbox/TGen Projects/20220318_Pooling_Script/Test_Dataset.csv") ###### Edit me!!!!!! Data to read in
-# Quant <- filter(Quant, Plate == "Plate 1")
-# Out <- tgen.north.lab.sequencing.tools:::create_pools(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
+# Quant <- filter(Quant, Plate == "Plate 1" |  Plate == "Plate 2")
+# create_pools_df <- tgen.north.lab.sequencing.tools:::create_pools(Quant = Quant, Max_Volume = Max_Volume, Min_Volume = Min_Volume)
 # Theoretical_Pools <- Out %>%
 #   group_by(Pool) %>%
 #   summarise(n_samples = n(), Final_Volume = sum(Vol_Pool), Theoretical_Conc = sum(Vol_Pool * Quantification) / sum(Vol_Pool))
