@@ -74,7 +74,7 @@ generate_plate_maps <- function(create_pools_df, Date_Project) {
       Temp_Plot <- full_join(Temp_Plot, MockPlate, by = c("Row", "Column"))
 
       # Define the save path for the pool-specific map.
-      savepath <- paste("./", Date_Project, "/", Date_Project, "_Pool_Map_", j, "_Pool", n, ".png", sep = "")
+      savepath <- paste("./", Date_Project, "/Pools_Map/", Date_Project, "_Pool_Map_", j, "_Pool", n, ".png", sep = "")
 
       # Create the pool-specific map using ggplot2.
       ggplot(data=Temp_Plot, aes(x=Column, y=Row)) +

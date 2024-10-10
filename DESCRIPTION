@@ -1,10 +1,10 @@
 Package: tgen.north.lab.sequencing.tools
 Type: Package
 Title: Tools For Laboratory Sequencing Preps At TGen North
-Version: 2.0.0
+Version: 2.0.1
 Author: W. Tanner Porter
 Maintainer: W. Tanner Porter <tporter@tgen.org>
-Description: A package to house informatic tools used in laboratory sequencing preps at TGen North.
+Description: A package to house informatic tools used in laboratory sequencing preps at TGen North. Version 2.0.0- Base version with modular pooling functions. Version 2.0.1- Slight changes in output, add EPMO plate reference file, and create warning for low input samples.
 License: TBD
 Encoding: UTF-8
 LazyData: true

@@ -42,7 +42,7 @@ create_epmo_input <- function(create_pools_df, Theoretical_Pools, Date_Project) 
     # Rename the columns to match the format expected by the robot:
     # Plate = Source Plate, Rack = Source Rack, Position = Source Well, Rack_dest = Destination Rack,
     # Destination = Destination Well, Vol_Pool = Volume, Tool = Pipetting Tool
-    names(Epmo) <- c("Plate (DELETE ME!)", "Rack", "Source", "Rack", "Destination", "Volume", "Tool")
+    names(Epmo) <- c("Plate (DELETE ME!)", "Rack_source", "Source", "Rack", "Destination", "Volume", "Tool")
 
     return(Epmo)
 
