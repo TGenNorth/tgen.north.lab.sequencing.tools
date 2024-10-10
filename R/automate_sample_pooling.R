@@ -54,6 +54,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
   # Write the final Epmo dataframe to a CSV file without row names.
   write.csv(Epmo, paste("./", Date_Project,"/", Date_Project, "_Epmo_Input.csv", sep = ""), row.names = FALSE)
 
+  if(nrow(Epmo) > 2){
   # Write file that says loding positions
   Load_Positions <- Epmo %>%
     group_by(`Plate (DELETE ME!)`, Rack_source) %>%
@@ -61,6 +62,7 @@ automate_sample_pooling <- function(Quant, Date_Project, Max_Volume = 8, Min_Vol
 
   #Save loading positions
   write.csv(Load_Positions, paste("./", Date_Project,"/", Date_Project, "_Epmo_Loading_Positions.csv", sep = ""), row.names = FALSE)
+  }
 
   cat("Starting to create Integra Input file...\n")
   #Generate Epmo Output
